@@ -2,3 +2,4 @@ google-genai
 numpy
 faiss-cpu
 python-dotenv
+rank_bm25

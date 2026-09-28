@@ -1,0 +1,164 @@
+{
+  "n02": {
+    "kind": "answerable",
+    "question": "How do I serve static files like CSS or images?",
+    "answer": "You can serve static files automatically from a directory using `StaticFiles` [source: static-files.md].\n\nTo do this:\n1.  Import `StaticFiles` [source: static-files.md].\n2.  \"Mount\" a `StaticFiles()` instance in a specific path [source: static-files.md].\n\nFor example, a CSS file would be served automatically by your FastAPI application at a URL like `/static/styles.css` if `StaticFiles` is used [source: advanced/templates.md].\n\nIf you need to host a frontend application, you can use `app.frontend()` instead, which uses `StaticFiles` underneath with additional advantages like handling client-side routing [source: static-files.md].",
+    "sources": [
+      "frontend.md",
+      "advanced/templates.md",
+      "static-files.md",
+      "frontend.md",
+      "frontend.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every claim in the answer is directly supported by the provided context, and the answer fully addresses the question about serving static files."
+    }
+  },
+  "n04": {
+    "kind": "answerable",
+    "question": "How can I accept both form data and files in the same endpoint?",
+    "answer": "You can define files and form fields at the same time using `File` and `Form` [source: request-forms-and-files.md]. To do this, you need to install `python-multipart` [source: request-forms-and-files.md]. You would define file and form parameters the same way you would for `Body` or `Query` [source: request-forms-and-files.md]. The files and form fields will be uploaded as form data [source: request-forms-and-files.md].\n\nA word of caution: when declaring multiple `File` and `Form` parameters in a path operation, you cannot also declare `Body` fields that you expect to receive as JSON. This is because the request body will be encoded using `multipart/form-data` instead of `application/json`, which is part of the HTTP protocol [source: request-forms-and-files.md, request-files.md].",
+    "sources": [
+      "request-forms-and-files.md",
+      "request-forms-and-files.md",
+      "request-files.md",
+      "request-files.md",
+      "request-files.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every factual claim in the answer is directly supported by the provided retrieved context, and the answer fully addresses the user's question."
+    }
+  },
+  "n06": {
+    "kind": "answerable",
+    "question": "How do I write automated tests for my app?",
+    "answer": "You can write automated tests for your FastAPI application using `TestClient` [source: advanced/testing-events.md, testing.md].\n\nHere's a breakdown of how to write tests:\n\n*   **Using `TestClient`**: You can import `TestClient` from `fastapi.testclient`. FastAPI provides this for convenience, and it is the same as `starlette.testclient` [source: testing.md].\n*   **Testing Framework**: You can use `pytest` directly, as the `TestClient` makes normal calls without needing `await` [source: testing.md].\n*   **File Structure**: A common approach is to place your tests in a `test_main.py` file within the same Python package (directory with an `__init__.py` file) as your `main.py` application file. This allows you to use relative imports to bring in your `app` object from `main` [source: testing.md].\n*   **Making Requests**:\n    *   To pass a path or query parameter, add it directly to the URL [source: testing.md].\n    *   To pass a JSON body, provide a Python object (like a `dict`) to the `json` parameter [source: testing.md].\n*   **Testing Lifespan and Events**:\n    *   To ensure `lifespan` events run in your tests, use the `TestClient` with a `with` statement [source: advanced/testing-events.md].\n    *   For the deprecated `startup` and `shutdown` events, you can use the `TestClient` directly [source: advanced/testing-events.md].\n*   **Asynchronous Functions in Tests**: If you need to call `async` functions within your tests, separate from sending requests to your FastAPI application (e.g., for asynchronous database functions), your test functions need to be asynchronous. You can achieve this using `pytest.mark.anyio` [source: advanced/async-tests.md, testing.md].",
+    "sources": [
+      "advanced/testing-events.md",
+      "testing.md",
+      "testing.md",
+      "testing.md",
+      "advanced/async-tests.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every factual claim in the answer is directly supported by the provided retrieved context, and the answer comprehensively addresses the user's question about writing automated tests."
+    }
+  },
+  "n08": {
+    "kind": "answerable",
+    "question": "How do I apply a dependency to every route in the app?",
+    "answer": "You can add dependencies to the `FastAPI` application itself, and they will be applied to all the *path operations* in the application [source: dependencies/global-dependencies.md]. This allows you to add dependencies to the whole application [source: dependencies/global-dependencies.md].",
+    "sources": [
+      "advanced/testing-dependencies.md",
+      "dependencies/global-dependencies.md",
+      "dependencies/dependencies-in-path-operation-decorators.md",
+      "dependencies/index.md",
+      "middleware.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every claim in the answer is directly supported by the provided context, and the answer fully addresses how to apply a dependency to every route in the app."
+    }
+  },
+  "n10": {
+    "kind": "answerable",
+    "question": "How do I allow requests from a different frontend domain?",
+    "answer": "To allow requests from a different frontend domain, you can configure your FastAPI application using the `CORSMiddleware` [source: cors.md].\n\nHere are the steps:\n1.  Import `CORSMiddleware` [source: cors.md].\n2.  Create a list of allowed origins (as strings) [source: cors.md]. For example, if your frontend is at `http://localhost:8080` and your backend is at `http://localhost`, `http://localhost:8080` would need to be included in the list of allowed origins for the frontend to work correctly [source: cors.md]. The `allow_origins` argument for `CORSMiddleware` accepts a list of origins that should be permitted to make cross-origin requests, such as `['https://example.org', 'https://www.example.org']` [source: cors.md]. You can also use `['*']` to allow any origin [source: cors.md].\n3.  Add `CORSMiddleware` as a \"middleware\" to your FastAPI application [source: cors.md].\n\nThe `CORSMiddleware` also supports arguments to specify whether your backend allows credentials (Authorization headers, Cookies, etc.), specific HTTP methods (e.g., `POST`, `PUT`) or all of them with `\"*\"`, and specific HTTP headers or all of them with `\"*\"`. The default parameters are restrictive, so you'll need to explicitly enable particular origins, methods, or headers [source: cors.md]. If `allow_credentials` is set to `True`, `allow_origins`, `allow_methods`, and `allow_headers` cannot be set to `['*']`; they must all be explicitly specified [source: cors.md].",
+    "sources": [
+      "cors.md",
+      "cors.md",
+      "cors.md",
+      "security/first-steps.md",
+      "cors.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every factual claim in the answer is directly supported by the provided context, and the answer fully addresses the user's question about allowing requests from a different frontend domain."
+    }
+  },
+  "n12": {
+    "kind": "answerable",
+    "question": "How do I do a partial update of a resource?",
+    "answer": "To perform a partial update of a resource:\n\n1.  (Optionally) use the HTTP `PATCH` operation instead of `PUT`. `PATCH` is intended for partially updating data, meaning you send only the data you want to update, leaving the rest intact [source: body-updates.md].\n2.  Retrieve the stored data [source: body-updates.md].\n3.  Put that data into a Pydantic model [source: body-updates.md].\n4.  Generate a `dict` from the input model that excludes default values, using Pydantic's `exclude_unset=True` parameter with `.model_dump()`. This generates a `dict` with only the data that was set (sent in the request), omitting default values [source: body-updates.md].\n5.  Create a copy of the stored model using `.model_copy()`, passing the `update` parameter with the `dict` containing the data to update. This updates only the values actually set by the user, rather than overriding stored values with default values from your model [source: body-updates.md].\n6.  Convert the copied model to a format that can be stored in your database, for example, using the `jsonable_encoder` to convert types like `datetime` to `str` [source: body-updates.md].\n7.  Save the updated data to your database [source: body-updates.md].\n8.  Return the updated model [source: body-updates.md].\n\nFor partial updates where all attributes might be omitted, you need to design an input model where all attributes are marked as optional (e.g., with default values or `None`) [source: body-updates.md]. For instance, a `HeroUpdate` data model can have all fields optional with a default value of `None` to allow sending only the fields you want to update [source: sql-databases.md].",
+    "sources": [
+      "body-updates.md",
+      "body-updates.md",
+      "body-updates.md",
+      "body-updates.md",
+      "sql-databases.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "The answer provides a comprehensive, step-by-step guide to performing a partial update, with every claim directly supported by the provided context."
+    }
+  },
+  "h02": {
+    "kind": "answerable",
+    "question": "How do I change the response status code from inside the function without returning a Response object?",
+    "answer": "You can change the response status code from inside the function without returning a `Response` object by declaring a parameter of type `Response` in your path operation function [source: advanced/response-change-status-code.md]. You can then set the `status_code` attribute on this temporary `Response` object [source: advanced/response-change-status-code.md]. After setting the status code, you can return any other object you need, such as a `dict` or a database model [source: advanced/response-change-status-code.md]. FastAPI will use this temporary response object to extract the status code (as well as cookies and headers) and include them in the final response [source: advanced/response-change-status-code.md]. This approach also works if you have declared a `response_model`, which will still be used to filter and convert the returned object [source: advanced/response-change-status-code.md]. You can also declare the `Response` parameter in dependencies [source: advanced/response-change-status-code.md].",
+    "sources": [
+      "advanced/response-change-status-code.md",
+      "advanced/response-change-status-code.md",
+      "advanced/additional-status-codes.md",
+      "advanced/custom-response.md",
+      "response-status-code.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every claim in the answer is directly supported by the provided context, and the answer fully addresses the user's question about changing the status code without returning a Response object."
+    }
+  },
+  "h04": {
+    "kind": "answerable",
+    "question": "How do I set custom headers on the response?",
+    "answer": "You can set custom headers on the response in several ways:\n\n1.  **Using a `Response` parameter in your *path operation function***: Declare a parameter of type `Response` in your path operation function and set headers on this temporary response object. FastAPI will extract these headers (along with cookies and status code) and include them in the final response [source: advanced/response-headers.md]. The `Response` class is available as `fastapi.Response` [source: advanced/response-headers.md].\n2.  **Returning a `Response` directly**: Create a `Response` object and pass the headers as an additional parameter [source: advanced/response-headers.md].\n3.  **For file responses**: When using file responses, you can include any custom headers as a dictionary using the `headers` parameter [source: advanced/custom-response.md].\n4.  **In custom exception handlers**: For advanced scenarios, you can add custom headers to HTTP errors within your custom exception handlers [source: handling-errors.md].\n5.  **Using middleware**: Middleware functions can modify the `response` generated by the path operation before returning it, allowing you to add or change headers [source: middleware.md].\n\nKeep in mind that custom proprietary headers can be added using the `X-` prefix [source: advanced/response-headers.md, middleware.md]. If you have custom headers that you want a client in a browser to be able to see, you need to add them to your CORS configurations using the `expose_headers` parameter [source: advanced/response-headers.md, middleware.md].",
+    "sources": [
+      "advanced/response-headers.md",
+      "advanced/custom-response.md",
+      "advanced/response-headers.md",
+      "handling-errors.md",
+      "middleware.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every factual claim in the answer is directly supported by the provided retrieved context, and the answer comprehensively addresses the user's question about setting custom headers."
+    }
+  },
+  "h06": {
+    "kind": "answerable",
+    "question": "How do I use OAuth2 scopes for fine-grained permissions?",
+    "answer": "You can use OAuth2 scopes directly with FastAPI to achieve a more fine-grained permission system, integrated into your OpenAPI application and API documentation [source: advanced/security/oauth2-scopes.md].\n\nOAuth2 scopes are defined as a list of strings, separated by spaces, where each string represents a specific \"permission\" and should not contain spaces [source: advanced/security/oauth2-scopes.md]. Examples of scopes include `users:read` or `users:write` [source: advanced/security/oauth2-scopes.md].\n\nThese scopes can be used to add a specific set of permissions to a JWT token, allowing users or third parties to interact with your API with a set of restrictions [source: security/oauth2-jwt.md]. In your API docs, when using OAuth2, you can define security schemes and declare these scopes [source: advanced/security/oauth2-scopes.md]. If a user does not select the necessary scopes, they might be authenticated but unable to access certain path operations, demonstrating the fine-grained control over permissions [source: advanced/security/oauth2-scopes.md].\n\nWhen declaring the OAuth2 security scheme, you specify the available scopes using a `dict` for the `scopes` parameter, where each scope is a key [source: advanced/security/oauth2-scopes.md].",
+    "sources": [
+      "advanced/security/oauth2-scopes.md",
+      "advanced/security/oauth2-scopes.md",
+      "advanced/security/oauth2-scopes.md",
+      "security/oauth2-jwt.md",
+      "advanced/security/oauth2-scopes.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "Every factual claim in the answer is directly supported by the provided retrieved context, and the answer fully addresses the question about how to use OAuth2 scopes for fine-grained permissions."
+    }
+  }
+}

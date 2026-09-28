@@ -1,0 +1,548 @@
+{
+  "per_question": [
+    {
+      "id": "n01",
+      "type": "natural",
+      "question": "How do I upload a file?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n02",
+      "type": "natural",
+      "question": "How do I serve static files like CSS or images?",
+      "bm25": {
+        "hit": 1,
+        "rr": 0.3333333333333333
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 0.3333333333333333
+      }
+    },
+    {
+      "id": "n03",
+      "type": "natural",
+      "question": "How do I read a custom header from a request?",
+      "bm25": {
+        "hit": 0,
+        "rr": 0.0
+      },
+      "vector": {
+        "hit": 0,
+        "rr": 0.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 0.2
+      }
+    },
+    {
+      "id": "n04",
+      "type": "natural",
+      "question": "How can I accept both form data and files in the same endpoint?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n05",
+      "type": "natural",
+      "question": "How do I organize a large app into multiple files?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n06",
+      "type": "natural",
+      "question": "How do I write automated tests for my app?",
+      "bm25": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 0.5
+      }
+    },
+    {
+      "id": "n07",
+      "type": "natural",
+      "question": "How do I connect my app to a SQL database?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n08",
+      "type": "natural",
+      "question": "How do I apply a dependency to every route in the app?",
+      "bm25": {
+        "hit": 0,
+        "rr": 0.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 0.5
+      }
+    },
+    {
+      "id": "n09",
+      "type": "natural",
+      "question": "How do I run a task after returning a response to the client?",
+      "bm25": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n10",
+      "type": "natural",
+      "question": "How do I allow requests from a different frontend domain?",
+      "bm25": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n11",
+      "type": "natural",
+      "question": "How do I read cookies sent by the client?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n12",
+      "type": "natural",
+      "question": "How do I do a partial update of a resource?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n13",
+      "type": "natural",
+      "question": "How do I debug my application in an editor?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "n14",
+      "type": "natural",
+      "question": "How do I validate and add metadata to fields inside a Pydantic model?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k01",
+      "type": "keyword",
+      "question": "python-multipart",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k02",
+      "type": "keyword",
+      "question": "UploadFile",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k03",
+      "type": "keyword",
+      "question": "BackgroundTasks",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k04",
+      "type": "keyword",
+      "question": "CORSMiddleware",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 0.5
+      }
+    },
+    {
+      "id": "k05",
+      "type": "keyword",
+      "question": "HTTPException",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k06",
+      "type": "keyword",
+      "question": "TestClient",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "k07",
+      "type": "keyword",
+      "question": "StaticFiles",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h01",
+      "type": "hard",
+      "question": "How do I test a websocket connection?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h02",
+      "type": "hard",
+      "question": "How do I change the response status code from inside the function without returning a Response object?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h03",
+      "type": "hard",
+      "question": "How do I run code when my app starts up and shuts down?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h04",
+      "type": "hard",
+      "question": "How do I set custom headers on the response?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h05",
+      "type": "hard",
+      "question": "How do I add HTTP Basic authentication?",
+      "bm25": {
+        "hit": 1,
+        "rr": 0.5
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h06",
+      "type": "hard",
+      "question": "How do I use OAuth2 scopes for fine-grained permissions?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h07",
+      "type": "hard",
+      "question": "How do I manage app configuration and environment variables?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h08",
+      "type": "hard",
+      "question": "How do I write asynchronous tests?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h09",
+      "type": "hard",
+      "question": "My app sits behind a proxy that strips a path prefix, how do I configure it?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h10",
+      "type": "hard",
+      "question": "How do I build a websocket endpoint?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    },
+    {
+      "id": "h11",
+      "type": "hard",
+      "question": "How do I generate a client SDK for my API?",
+      "bm25": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "vector": {
+        "hit": 1,
+        "rr": 1.0
+      },
+      "hybrid": {
+        "hit": 1,
+        "rr": 1.0
+      }
+    }
+  ]
+}
