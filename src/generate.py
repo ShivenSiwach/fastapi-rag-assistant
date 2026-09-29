@@ -6,7 +6,7 @@ from search_hybrid import hybrid_search
 
 load_dotenv()
 
-GEN_MODEL = "gemini-2.5-flash"
+GEN_MODEL = "gemini-3.5-flash-lite"
 
 SYSTEM_PROMPT = """You are a documentation assistant for FastAPI. Answer the \
 user's question using ONLY the provided context chunks below. \

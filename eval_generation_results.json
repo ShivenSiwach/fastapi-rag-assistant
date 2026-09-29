@@ -160,5 +160,144 @@
       "relevancy": 5,
       "reason": "Every factual claim in the answer is directly supported by the provided retrieved context, and the answer fully addresses the question about how to use OAuth2 scopes for fine-grained permissions."
     }
+  },
+  "h08": {
+    "kind": "answerable",
+    "question": "How do I write asynchronous tests?",
+    "answer": "To write asynchronous tests for your FastAPI application, you can use the following approach:\n\n1. **Use AnyIO**: Use the `@pytest.mark.anyio` marker to specify that a test function should be called asynchronously [source: advanced/async-tests.md].\n2. **Define an `async def` function**: Make your test functions asynchronous by defining them with `async def` instead of standard `def` functions [source: advanced/async-tests.md].\n3. **Use an `AsyncClient`**: Because the standard `TestClient` does not work inside asynchronous functions, you can use an `AsyncClient` directly (which is based on HTTPX) to send asynchronous requests to your application using `await` [source: advanced/async-tests.md].",
+    "sources": [
+      "advanced/async-tests.md",
+      "advanced/async-tests.md",
+      "advanced/async-tests.md",
+      "testing.md",
+      "advanced/async-tests.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "The system answer accurately and completely explains how to write asynchronous tests using the provided context from the documentation."
+    }
+  },
+  "h09": {
+    "kind": "answerable",
+    "question": "My app sits behind a proxy that strips a path prefix, how do I configure it?",
+    "answer": "To configure your application when it sits behind a proxy with a stripped path prefix, you can use the command line option `--root-path` [source: advanced/behind-a-proxy.md].",
+    "sources": [
+      "advanced/behind-a-proxy.md",
+      "advanced/behind-a-proxy.md",
+      "advanced/behind-a-proxy.md",
+      "advanced/behind-a-proxy.md",
+      "advanced/behind-a-proxy.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "The system answer directly and accurately addresses how to configure an app behind a proxy that strips a path prefix using the provided context."
+    }
+  },
+  "h11": {
+    "kind": "answerable",
+    "question": "How do I generate a client SDK for my API?",
+    "answer": "To generate a client SDK for your FastAPI backend, you can use tools that understand the OpenAPI specification, since FastAPI is based on it [source: advanced/generate-clients.md]. \n\nFor example, to generate a **TypeScript SDK** using **Hey API**, you can run the following command via `npx` [source: advanced/generate-clients.md]:\n\n```sh\nnpx @hey-api/openapi-ts -i http://localhost:8000/openapi.json -o src/client\n```\n\nThis will generate a TypeScript SDK in `./src/client` [source: advanced/generate-clients.md]. If you are using a local OpenAPI file instead of a running server, you can update your input location like this [source: advanced/generate-clients.md]:\n\n```sh\nnpx @hey-api/openapi-ts -i ./openapi.json -o src/client\n```\n\nYou can also use other open-source tools, such as the [OpenAPI Generator](https://openapi-generator.tech/), which supports many programming languages [source: advanced/generate-clients.md]. You can find more SDK generators on [OpenAPI.Tools](https://openapi.tools/categories/sdk-generators) [source: advanced/generate-clients.md]. \n\n*Note: FastAPI automatically generates OpenAPI 3.1 specifications, so any tool you use must support this version [source: advanced/generate-clients.md].*",
+    "sources": [
+      "advanced/generate-clients.md",
+      "advanced/generate-clients.md",
+      "advanced/generate-clients.md",
+      "advanced/generate-clients.md",
+      "advanced/generate-clients.md"
+    ],
+    "verdict": {
+      "unsupported_claims": [],
+      "faithfulness": 5,
+      "relevancy": 5,
+      "reason": "The system answer accurately and completely explains how to generate a client SDK using the provided context."
+    }
+  },
+  "u01": {
+    "kind": "unanswerable",
+    "question": "How do I deploy FastAPI to Kubernetes?",
+    "answer": "The provided context does not contain information on how to deploy FastAPI to Kubernetes. It only mentions deploying to FastAPI Cloud using `fastapi deploy` or deploying to any cloud provider by following their respective guides [source: first-steps.md, index.md].",
+    "sources": [
+      "first-steps.md",
+      "first-steps.md",
+      "first-steps.md",
+      "first-steps.md",
+      "index.md"
+    ],
+    "verdict": {
+      "declined": true,
+      "fabricated_specifics": false,
+      "reason": "The system correctly identified that the context lacks information on deploying to Kubernetes and refrained from fabricating instructions."
+    }
+  },
+  "u02": {
+    "kind": "unanswerable",
+    "question": "How do I add Redis caching to my endpoints?",
+    "answer": "The provided context does not contain instructions on how to add Redis caching to your endpoints. (The context does mention `encode/broadcaster` as an option that is supported by Redis for handling WebSocket connections [source: advanced/websockets.md], and mentions `@lru_cache` for caching settings [source: advanced/settings.md], but does not provide details on Redis caching for endpoints.)",
+    "sources": [
+      "server-sent-events.md",
+      "security/get-current-user.md",
+      "advanced/websockets.md",
+      "advanced/settings.md",
+      "advanced/settings.md"
+    ],
+    "verdict": {
+      "declined": true,
+      "fabricated_specifics": false,
+      "reason": "The system correctly identified that the context lacks information on adding Redis caching to endpoints and pointed out related context without making up specifics."
+    }
+  },
+  "u03": {
+    "kind": "unanswerable",
+    "question": "How do I integrate Stripe payments?",
+    "answer": "The provided context does not contain the answer to how to integrate Stripe payments.",
+    "sources": [
+      "security/first-steps.md",
+      "security/oauth2-jwt.md",
+      "dependencies/index.md",
+      "advanced/openapi-callbacks.md",
+      "advanced/websockets.md"
+    ],
+    "verdict": {
+      "declined": true,
+      "fabricated_specifics": false,
+      "reason": "The system correctly identified that the provided context does not contain information about integrating Stripe payments and declined to answer."
+    }
+  },
+  "u04": {
+    "kind": "unanswerable",
+    "question": "How do I send emails over SMTP from my app?",
+    "answer": "Based on the provided context, there is no information explaining how to send emails over SMTP from your app.",
+    "sources": [
+      "advanced/openapi-webhooks.md",
+      "advanced/websockets.md",
+      "stream-json-lines.md",
+      "background-tasks.md",
+      "dependencies/dependencies-with-yield.md"
+    ],
+    "verdict": {
+      "declined": true,
+      "fabricated_specifics": false,
+      "reason": "The system correctly stated that the provided context does not contain information about sending emails over SMTP."
+    }
+  },
+  "u05": {
+    "kind": "unanswerable",
+    "question": "How do I add Elasticsearch full-text search?",
+    "answer": "The provided context does not contain information about how to add Elasticsearch full-text search.",
+    "sources": [
+      "first-steps.md",
+      "body-updates.md",
+      "sql-databases.md",
+      "frontend.md",
+      "extra-models.md"
+    ],
+    "verdict": {
+      "declined": true,
+      "fabricated_specifics": false,
+      "reason": "The system correctly stated that the provided context does not contain information about adding Elasticsearch full-text search."
+    }
   }
 }

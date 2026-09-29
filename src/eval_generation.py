@@ -13,7 +13,7 @@ load_dotenv()
 
 EVAL_PATH = Path(__file__).parent.parent / "data" / "eval_set.json"
 RESULTS_PATH = Path(__file__).parent.parent / "eval_generation_results.json"
-JUDGE_MODEL = "gemini-2.5-flash"
+JUDGE_MODEL = "gemini-3.5-flash-lite"
 SECONDS_BETWEEN_QUESTIONS = 13  # keeps two generation calls per question under the free-tier limit
 
 ANSWERABLE_IDS = ["n02", "n04", "n06", "n08", "n10", "n12",
@@ -91,7 +91,7 @@ def with_retry(fn, tries=4):
                 raise
             wait = 20 * (attempt + 1)
             print(f"    rate limited or busy, waiting {wait}s (attempt {attempt + 1}/{tries})...")
-            time.sleep(wait)
+            time.sleep(wait)                                
 
 
 def judge(client, prompt):
