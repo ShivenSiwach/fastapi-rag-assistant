@@ -1,0 +1,9 @@
+venv/
+.env
+__pycache__/
+*.pyc
+.git/
+data/raw/
+temp-fastapi/
+eval_generation_results.json
+eval_results.json
