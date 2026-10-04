@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+from gemini_client import get_client
 
 from search import load_chunks, embed_query, build_index  # step 5 (vector)
 from search_bm25 import build_bm25, tokenize               # step 6 (BM25)
@@ -22,7 +23,7 @@ def hybrid_search(query: str, k: int = 5, pool_size: int = 20):
     import numpy as np
     embeddings = np.load("data/processed/embeddings.npy")
     index = build_index(embeddings)
-    client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+    client = get_client()
     query_vec = embed_query(client, query).reshape(1, -1)
     _, vector_ranking = index.search(query_vec, pool_size)
     vector_ranking = vector_ranking[0]

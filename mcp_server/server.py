@@ -1,20 +1,37 @@
 """MCP server exposing the FastAPI docs RAG system."""
 from mcp.server import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
+import logging
+import threading
 
 from rag_backend import LocalBackend, RagBackend, RagBackendError
 
 mcp = MCPServer("fastapi-docs-rag")
 
+for _name in ("httpx", "httpx2", "httpcore", "faiss", "google_genai"):
+    logging.getLogger(_name).setLevel(logging.WARNING)
+logging.getLogger("google_genai.models").setLevel(logging.ERROR)
+
 _backend: RagBackend | None = None
+_backend_lock = threading.Lock()
 
 
 def get_backend() -> RagBackend:
-    """Create the backend on first use, then reuse it."""
+    """Create the backend once (thread-safe), then reuse it."""
     global _backend
     if _backend is None:
-        _backend = LocalBackend()
+        with _backend_lock:
+            if _backend is None:
+                _backend = LocalBackend()
     return _backend
+
+
+def _warm_up() -> None:
+    """Pay the one-time startup costs before the first real request."""
+    try:
+        get_backend().retrieve("warm up", k=1)
+    except Exception:
+        logging.getLogger(__name__).warning("warm-up failed", exc_info=True)
 
 
 def _require_text(value: str, name: str) -> str:
@@ -90,4 +107,5 @@ def ask_fastapi_docs(question: str, top_k: int = 5) -> str:
 
 
 if __name__ == "__main__":
+    threading.Thread(target=_warm_up, daemon=True).start()
     mcp.run()
