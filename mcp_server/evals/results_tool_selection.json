@@ -1,0 +1,230 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "tools_fingerprint": "8c013136dff0",
+  "results": {
+    "s01": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "declare query parameter with a default value"
+          }
+        }
+      ]
+    },
+    "s02": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "background tasks"
+          }
+        }
+      ]
+    },
+    "s03": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "Request Forms and Files"
+          }
+        }
+      ]
+    },
+    "s04": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "top_k": 5,
+            "query": "Dependency Injection"
+          }
+        }
+      ]
+    },
+    "s05": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "python-multipart"
+          }
+        }
+      ]
+    },
+    "s06": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "root_path"
+          }
+        }
+      ]
+    },
+    "s07": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "lifespan"
+          }
+        }
+      ]
+    },
+    "s08": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "CORS origins configured middleware"
+          }
+        }
+      ]
+    },
+    "s09": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "top_k": 5,
+            "query": "OAuth2 password flow"
+          }
+        }
+      ]
+    },
+    "s10": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "testing websockets"
+          }
+        }
+      ]
+    },
+    "s11": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "deploy Kubernetes"
+          }
+        }
+      ]
+    },
+    "s12": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "Redis caching"
+          }
+        }
+      ]
+    },
+    "a01": {
+      "picked": "ask",
+      "calls": [
+        {
+          "name": "ask_fastapi_docs",
+          "args": {
+            "question": "How do I upload a file?"
+          }
+        }
+      ]
+    },
+    "a02": {
+      "picked": "ask",
+      "calls": [
+        {
+          "name": "ask_fastapi_docs",
+          "args": {
+            "question": "How do I use response_model?"
+          }
+        }
+      ]
+    },
+    "a03": {
+      "picked": "ask",
+      "calls": [
+        {
+          "name": "ask_fastapi_docs",
+          "args": {
+            "question": "How do path parameters work in FastAPI?"
+          }
+        }
+      ]
+    },
+    "a04": {
+      "picked": "ask",
+      "calls": [
+        {
+          "name": "ask_fastapi_docs",
+          "args": {
+            "question": "how do I add middleware?"
+          }
+        }
+      ]
+    },
+    "a05": {
+      "picked": "ask",
+      "calls": [
+        {
+          "name": "ask_fastapi_docs",
+          "args": {
+            "question": "running behind HTTPS proxies"
+          }
+        }
+      ]
+    },
+    "a06": {
+      "picked": "search",
+      "calls": [
+        {
+          "name": "search_fastapi_docs",
+          "args": {
+            "query": "Pydantic model used for FastAPI"
+          }
+        }
+      ]
+    },
+    "n01": {
+      "picked": "none",
+      "calls": []
+    },
+    "n02": {
+      "picked": "none",
+      "calls": []
+    },
+    "n03": {
+      "picked": "none",
+      "calls": []
+    },
+    "n04": {
+      "picked": "none",
+      "calls": []
+    },
+    "n05": {
+      "picked": "none",
+      "calls": []
+    },
+    "n06": {
+      "picked": "none",
+      "calls": []
+    }
+  }
+}

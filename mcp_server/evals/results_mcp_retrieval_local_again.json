@@ -1,0 +1,550 @@
+{
+  "backend": "local",
+  "label": "again",
+  "summaries": {
+    "overall": {
+      "mcp": {
+        "n": 32,
+        "recall": 1.0,
+        "mrr": 0.907
+      },
+      "rag_project": {
+        "n": 32,
+        "recall": 1.0,
+        "mrr": 0.907
+      }
+    },
+    "natural": {
+      "mcp": {
+        "n": 14,
+        "recall": 1.0,
+        "mrr": 0.824
+      },
+      "rag_project": {
+        "n": 14,
+        "recall": 1.0,
+        "mrr": 0.824
+      }
+    },
+    "keyword": {
+      "mcp": {
+        "n": 7,
+        "recall": 1.0,
+        "mrr": 0.929
+      },
+      "rag_project": {
+        "n": 7,
+        "recall": 1.0,
+        "mrr": 0.929
+      }
+    },
+    "hard": {
+      "mcp": {
+        "n": 11,
+        "recall": 1.0,
+        "mrr": 1.0
+      },
+      "rag_project": {
+        "n": 11,
+        "recall": 1.0,
+        "mrr": 1.0
+      }
+    }
+  },
+  "mismatches": [],
+  "latency": {
+    "cold_start_to_first_answer_ms": 7425,
+    "steady_n": 31,
+    "steady_median_ms": 717,
+    "steady_p95_ms": 1250,
+    "steady_min_ms": 621,
+    "steady_max_ms": 1433
+  },
+  "protocol_overhead": {
+    "n": 50,
+    "median_ms": 4.48,
+    "p95_ms": 4.93
+  },
+  "per_question": [
+    {
+      "id": "n01",
+      "type": "natural",
+      "question": "How do I upload a file?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 4648,
+      "files": [
+        "request-files.md",
+        "request-files.md",
+        "request-files.md",
+        "request-files.md",
+        "request-files.md"
+      ]
+    },
+    {
+      "id": "n02",
+      "type": "natural",
+      "question": "How do I serve static files like CSS or images?",
+      "hit": 1,
+      "rr": 0.3333333333333333,
+      "ms": 694,
+      "files": [
+        "frontend.md",
+        "advanced/templates.md",
+        "static-files.md",
+        "frontend.md",
+        "frontend.md"
+      ]
+    },
+    {
+      "id": "n03",
+      "type": "natural",
+      "question": "How do I read a custom header from a request?",
+      "hit": 1,
+      "rr": 0.2,
+      "ms": 1128,
+      "files": [
+        "advanced/response-headers.md",
+        "middleware.md",
+        "header-param-models.md",
+        "handling-errors.md",
+        "header-params.md"
+      ]
+    },
+    {
+      "id": "n04",
+      "type": "natural",
+      "question": "How can I accept both form data and files in the same endpoint?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 818,
+      "files": [
+        "request-forms-and-files.md",
+        "request-forms-and-files.md",
+        "request-files.md",
+        "request-files.md",
+        "request-files.md"
+      ]
+    },
+    {
+      "id": "n05",
+      "type": "natural",
+      "question": "How do I organize a large app into multiple files?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 717,
+      "files": [
+        "bigger-applications.md",
+        "advanced/settings.md",
+        "dependencies/global-dependencies.md",
+        "advanced/stream-data.md",
+        "bigger-applications.md"
+      ]
+    },
+    {
+      "id": "n06",
+      "type": "natural",
+      "question": "How do I write automated tests for my app?",
+      "hit": 1,
+      "rr": 0.5,
+      "ms": 716,
+      "files": [
+        "advanced/testing-events.md",
+        "testing.md",
+        "testing.md",
+        "testing.md",
+        "advanced/async-tests.md"
+      ]
+    },
+    {
+      "id": "n07",
+      "type": "natural",
+      "question": "How do I connect my app to a SQL database?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 716,
+      "files": [
+        "sql-databases.md",
+        "sql-databases.md",
+        "sql-databases.md",
+        "sql-databases.md",
+        "sql-databases.md"
+      ]
+    },
+    {
+      "id": "n08",
+      "type": "natural",
+      "question": "How do I apply a dependency to every route in the app?",
+      "hit": 1,
+      "rr": 0.5,
+      "ms": 699,
+      "files": [
+        "advanced/testing-dependencies.md",
+        "dependencies/global-dependencies.md",
+        "dependencies/dependencies-in-path-operation-decorators.md",
+        "dependencies/index.md",
+        "middleware.md"
+      ]
+    },
+    {
+      "id": "n09",
+      "type": "natural",
+      "question": "How do I run a task after returning a response to the client?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 835,
+      "files": [
+        "background-tasks.md",
+        "dependencies/dependencies-with-yield.md",
+        "background-tasks.md",
+        "background-tasks.md",
+        "dependencies/dependencies-with-yield.md"
+      ]
+    },
+    {
+      "id": "n10",
+      "type": "natural",
+      "question": "How do I allow requests from a different frontend domain?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 718,
+      "files": [
+        "cors.md",
+        "cors.md",
+        "cors.md",
+        "security/first-steps.md",
+        "cors.md"
+      ]
+    },
+    {
+      "id": "n11",
+      "type": "natural",
+      "question": "How do I read cookies sent by the client?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 1433,
+      "files": [
+        "cookie-params.md",
+        "cookie-param-models.md",
+        "cookie-param-models.md",
+        "advanced/response-cookies.md",
+        "security/simple-oauth2.md"
+      ]
+    },
+    {
+      "id": "n12",
+      "type": "natural",
+      "question": "How do I do a partial update of a resource?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 715,
+      "files": [
+        "body-updates.md",
+        "body-updates.md",
+        "body-updates.md",
+        "body-updates.md",
+        "sql-databases.md"
+      ]
+    },
+    {
+      "id": "n13",
+      "type": "natural",
+      "question": "How do I debug my application in an editor?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 716,
+      "files": [
+        "debugging.md",
+        "advanced/generate-clients.md",
+        "debugging.md",
+        "body.md",
+        "debugging.md"
+      ]
+    },
+    {
+      "id": "n14",
+      "type": "natural",
+      "question": "How do I validate and add metadata to fields inside a Pydantic model?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 819,
+      "files": [
+        "body-fields.md",
+        "body-nested-models.md",
+        "body-fields.md",
+        "response-model.md",
+        "request-form-models.md"
+      ]
+    },
+    {
+      "id": "k01",
+      "type": "keyword",
+      "question": "python-multipart",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 718,
+      "files": [
+        "request-files.md",
+        "request-forms-and-files.md",
+        "request-forms.md",
+        "request-form-models.md",
+        "request-files.md"
+      ]
+    },
+    {
+      "id": "k02",
+      "type": "keyword",
+      "question": "UploadFile",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 818,
+      "files": [
+        "request-files.md",
+        "request-files.md",
+        "request-files.md",
+        "request-files.md",
+        "request-files.md"
+      ]
+    },
+    {
+      "id": "k03",
+      "type": "keyword",
+      "question": "BackgroundTasks",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 717,
+      "files": [
+        "background-tasks.md",
+        "background-tasks.md",
+        "background-tasks.md",
+        "background-tasks.md",
+        "background-tasks.md"
+      ]
+    },
+    {
+      "id": "k04",
+      "type": "keyword",
+      "question": "CORSMiddleware",
+      "hit": 1,
+      "rr": 0.5,
+      "ms": 818,
+      "files": [
+        "advanced/response-headers.md",
+        "cors.md",
+        "cors.md",
+        "cors.md",
+        "advanced/middleware.md"
+      ]
+    },
+    {
+      "id": "k05",
+      "type": "keyword",
+      "question": "HTTPException",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 819,
+      "files": [
+        "handling-errors.md",
+        "handling-errors.md",
+        "handling-errors.md",
+        "handling-errors.md",
+        "dependencies/dependencies-with-yield.md"
+      ]
+    },
+    {
+      "id": "k06",
+      "type": "keyword",
+      "question": "TestClient",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 708,
+      "files": [
+        "testing.md",
+        "advanced/testing-websockets.md",
+        "testing.md",
+        "advanced/testing-events.md",
+        "advanced/async-tests.md"
+      ]
+    },
+    {
+      "id": "k07",
+      "type": "keyword",
+      "question": "StaticFiles",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 621,
+      "files": [
+        "static-files.md",
+        "advanced/templates.md",
+        "static-files.md",
+        "advanced/templates.md",
+        "frontend.md"
+      ]
+    },
+    {
+      "id": "h01",
+      "type": "hard",
+      "question": "How do I test a websocket connection?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 676,
+      "files": [
+        "advanced/testing-websockets.md",
+        "advanced/websockets.md",
+        "advanced/websockets.md",
+        "advanced/websockets.md",
+        "advanced/websockets.md"
+      ]
+    },
+    {
+      "id": "h02",
+      "type": "hard",
+      "question": "How do I change the response status code from inside the function without returning a Response object?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 761,
+      "files": [
+        "advanced/response-change-status-code.md",
+        "advanced/response-change-status-code.md",
+        "advanced/additional-status-codes.md",
+        "advanced/custom-response.md",
+        "response-status-code.md"
+      ]
+    },
+    {
+      "id": "h03",
+      "type": "hard",
+      "question": "How do I run code when my app starts up and shuts down?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 815,
+      "files": [
+        "advanced/events.md",
+        "advanced/events.md",
+        "advanced/events.md",
+        "advanced/events.md",
+        "sql-databases.md"
+      ]
+    },
+    {
+      "id": "h04",
+      "type": "hard",
+      "question": "How do I set custom headers on the response?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 717,
+      "files": [
+        "advanced/response-headers.md",
+        "advanced/custom-response.md",
+        "advanced/response-headers.md",
+        "handling-errors.md",
+        "middleware.md"
+      ]
+    },
+    {
+      "id": "h05",
+      "type": "hard",
+      "question": "How do I add HTTP Basic authentication?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 921,
+      "files": [
+        "advanced/security/http-basic-auth.md",
+        "security/index.md",
+        "security/first-steps.md",
+        "security/index.md",
+        "security/index.md"
+      ]
+    },
+    {
+      "id": "h06",
+      "type": "hard",
+      "question": "How do I use OAuth2 scopes for fine-grained permissions?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 697,
+      "files": [
+        "advanced/security/oauth2-scopes.md",
+        "advanced/security/oauth2-scopes.md",
+        "advanced/security/oauth2-scopes.md",
+        "security/oauth2-jwt.md",
+        "advanced/security/oauth2-scopes.md"
+      ]
+    },
+    {
+      "id": "h07",
+      "type": "hard",
+      "question": "How do I manage app configuration and environment variables?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 737,
+      "files": [
+        "advanced/settings.md",
+        "advanced/settings.md",
+        "advanced/settings.md",
+        "advanced/settings.md",
+        "advanced/settings.md"
+      ]
+    },
+    {
+      "id": "h08",
+      "type": "hard",
+      "question": "How do I write asynchronous tests?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 716,
+      "files": [
+        "advanced/async-tests.md",
+        "advanced/async-tests.md",
+        "advanced/async-tests.md",
+        "testing.md",
+        "advanced/async-tests.md"
+      ]
+    },
+    {
+      "id": "h09",
+      "type": "hard",
+      "question": "My app sits behind a proxy that strips a path prefix, how do I configure it?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 716,
+      "files": [
+        "advanced/behind-a-proxy.md",
+        "advanced/behind-a-proxy.md",
+        "advanced/behind-a-proxy.md",
+        "advanced/behind-a-proxy.md",
+        "advanced/behind-a-proxy.md"
+      ]
+    },
+    {
+      "id": "h10",
+      "type": "hard",
+      "question": "How do I build a websocket endpoint?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 671,
+      "files": [
+        "advanced/websockets.md",
+        "advanced/websockets.md",
+        "advanced/testing-websockets.md",
+        "advanced/websockets.md",
+        "advanced/websockets.md"
+      ]
+    },
+    {
+      "id": "h11",
+      "type": "hard",
+      "question": "How do I generate a client SDK for my API?",
+      "hit": 1,
+      "rr": 1.0,
+      "ms": 654,
+      "files": [
+        "advanced/generate-clients.md",
+        "advanced/generate-clients.md",
+        "advanced/generate-clients.md",
+        "advanced/generate-clients.md",
+        "advanced/generate-clients.md"
+      ]
+    }
+  ]
+}

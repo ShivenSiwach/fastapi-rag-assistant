@@ -1,20 +1,34 @@
-"""11a/11b: run the labeled eval set through the real MCP server (stdio)."""
+"""11a/11b/12e: run the labeled eval set through the real MCP server (stdio).
+
+Usage: python eval_mcp_retrieval.py [local|http] [label]
+"""
 import asyncio
 import json
+import os
 import statistics
 import sys
 import tempfile
 import time
 from pathlib import Path
 
+import httpx
 from mcp import Client
-from mcp.client.stdio import StdioServerParameters, stdio_client
+from mcp.client.stdio import StdioServerParameters, get_default_environment, stdio_client
 
 ROOT = Path(__file__).resolve().parents[2]
 MCP_DIR = ROOT / "mcp_server"
 EVAL_PATH = ROOT / "data" / "eval_set.json"
 BASELINE_PATH = ROOT / "eval_results.json"
-OUT_PATH = Path(__file__).resolve().parent / "results_mcp_retrieval.json"
+
+BACKEND = sys.argv[1] if len(sys.argv) > 1 else "local"
+LABEL = sys.argv[2] if len(sys.argv) > 2 else ""
+if BACKEND not in ("local", "http"):
+    raise SystemExit("First argument must be 'local' or 'http'.")
+SERVICE_URL = os.environ.get("RAG_SERVICE_URL", "http://127.0.0.1:8000")
+OUT_PATH = Path(__file__).resolve().parent / (
+    f"results_mcp_retrieval_{BACKEND}" + (f"_{LABEL}" if LABEL else "") + ".json"
+)
+
 K = 5
 SEP = "\n\n---\n\n"
 
@@ -52,12 +66,28 @@ def percentile95(values):
     return statistics.quantiles(values, n=20)[-1]
 
 
+def server_env():
+    """The client forwards only a few variables by default, so say it explicitly."""
+    return {**get_default_environment(),
+            "RAG_BACKEND": BACKEND, "RAG_SERVICE_URL": SERVICE_URL}
+
+
+def check_service():
+    """For http runs: fail early if the service is not up. /health does not warm retrieval."""
+    try:
+        r = httpx.get(f"{SERVICE_URL}/health", timeout=3.0)
+        print(f"Service check: HTTP {r.status_code} {r.text}")
+    except httpx.HTTPError as exc:
+        raise SystemExit(f"Service not reachable at {SERVICE_URL}: {exc}")
+
+
 async def run_eval():
     eval_set = json.loads(EVAL_PATH.read_text(encoding="utf-8"))
     params = StdioServerParameters(
         command=sys.executable,
         args=[str(MCP_DIR / "server.py")],
         cwd=tempfile.gettempdir(),  # deliberately not the project folder
+        env=server_env(),
     )
     rows = []
     cold_ms = None
@@ -98,7 +128,10 @@ async def protocol_overhead(n=50):
 
 
 def main():
-    print("Running the eval set through the MCP server...")
+    print(f"Running the eval set through the MCP server "
+          f"(backend={BACKEND}, label={LABEL or '-'})...")
+    if BACKEND == "http":
+        check_service()
     rows, cold_ms = asyncio.run(run_eval())
 
     baseline = {}
@@ -154,7 +187,8 @@ def main():
     print(f"  median {overhead['median_ms']} ms, p95 {overhead['p95_ms']} ms (n={overhead['n']})")
 
     OUT_PATH.write_text(
-        json.dumps({"summaries": summaries, "mismatches": mismatches, "latency": latency,
+        json.dumps({"backend": BACKEND, "label": LABEL,
+                    "summaries": summaries, "mismatches": mismatches, "latency": latency,
                     "protocol_overhead": overhead, "per_question": rows}, indent=2),
         encoding="utf-8",
     )
