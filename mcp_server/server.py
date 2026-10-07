@@ -2,6 +2,7 @@
 from mcp.server import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 import logging
+import os
 import threading
 
 from rag_backend import LocalBackend, RagBackend, RagBackendError
@@ -15,6 +16,22 @@ logging.getLogger("google_genai.models").setLevel(logging.ERROR)
 _backend: RagBackend | None = None
 _backend_lock = threading.Lock()
 
+DEFAULT_ASK_BUDGET = 5
+_ask_calls = 0
+_ask_lock = threading.Lock()
+
+def _make_backend() -> RagBackend:
+    """Pick the backend from the RAG_BACKEND environment variable (default: local)."""
+    choice = os.environ.get("RAG_BACKEND", "local").strip().lower()
+    if choice == "local":
+        return LocalBackend()
+    if choice == "http":
+        from http_backend import DEFAULT_URL, HttpBackend
+
+        return HttpBackend(os.environ.get("RAG_SERVICE_URL", DEFAULT_URL))
+    raise RagBackendError(
+        f"Unknown RAG_BACKEND value {choice!r}. Use 'local' or 'http'."
+    )
 
 def get_backend() -> RagBackend:
     """Create the backend once (thread-safe), then reuse it."""
@@ -22,7 +39,7 @@ def get_backend() -> RagBackend:
     if _backend is None:
         with _backend_lock:
             if _backend is None:
-                _backend = LocalBackend()
+                _backend = _make_backend()
     return _backend
 
 
@@ -33,6 +50,30 @@ def _warm_up() -> None:
     except Exception:
         logging.getLogger(__name__).warning("warm-up failed", exc_info=True)
 
+def _ask_budget() -> int:
+    """Max ask_fastapi_docs calls per server process (env ASK_BUDGET, 0 disables)."""
+    raw = os.environ.get("ASK_BUDGET", str(DEFAULT_ASK_BUDGET))
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        logging.getLogger(__name__).warning(
+            "ASK_BUDGET=%r is not a number; using %d", raw, DEFAULT_ASK_BUDGET)
+        return DEFAULT_ASK_BUDGET
+
+
+def _spend_ask_call() -> None:
+    """Count one attempt, or raise a readable error once the budget is used up."""
+    global _ask_calls
+    budget = _ask_budget()
+    with _ask_lock:
+        if _ask_calls >= budget:
+            raise ToolError(
+                f"The answer-generation budget for this session is used up "
+                f"({budget} calls). Use search_fastapi_docs instead: it does not "
+                "use generation quota, so read its excerpts and answer from them. "
+                "The limit resets when the MCP server is restarted."
+            )
+        _ask_calls += 1
 
 def _require_text(value: str, name: str) -> str:
     value = value.strip()
@@ -93,6 +134,7 @@ def ask_fastapi_docs(question: str, top_k: int = 5) -> str:
     """
     question = _require_text(question, "question")
     top_k = max(1, min(top_k, 10))
+    _spend_ask_call()
 
     try:
         result = get_backend().answer(question, k=top_k)
