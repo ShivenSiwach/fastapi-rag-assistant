@@ -233,4 +233,37 @@ Observations (single runs; the two hosts use different models, so these show var
 - **14:** Dockerfile for the MCP server.
 - **15:** README, final project report, and merge to `main`.
 
-*End of log (steps 1 to 10).*
+## Step 11: Evals
+**11a/b: retrieval parity and latency through MCP (stdio).** 32 labeled questions run through the real server, launched from the temp folder; scored with the project's own hit/RR definition.
+- Parity: 32 compared, 0 differ from eval_results.json. Overall recall 1.000 / MRR 0.907; natural (n=14) 1.000 / 0.824; keyword (n=7) 1.000 / 0.929; hard (n=11) 1.000 / 1.000.
+- Latency (one run): cold start to first answer 12,742 ms; steady median 737 ms, min 679, max 876 (n=31; p95 855 is close to the max and not meaningful at this n). Protocol overhead with a trivial tool: median 4.28 ms.
+- Limits: single run, one machine; some ranks sit at the edge (n03 rr=0.200).
+
+**11c: tool selection (Gemini only).** gemini-3.5-flash-lite, default settings, 24 labeled prompts, one run each, real tool schemas, tools never executed. 23/24 correct (search 12/12, ask 5/6, none 6/6). No prompt that should not call `ask` called it.
+- Only miss: a06 ("Run the grounded-answer tool..."), a paraphrase of the tool; I tagged it `tool-named` in error and corrected the tag to `paraphrased-tool` afterwards. The result itself was not changed.
+- Limits: one model, one run, small and mostly easy set (ceiling effect), no argument checking.
+
+## Step 12: HttpBackend
+- Design: same RagBackend interface, new HttpBackend (one reused httpx client; connect timeout 3 s, read timeout 60 s; every failure becomes a readable RagBackendError). Switch: RAG_BACKEND=local|http (default local), RAG_SERVICE_URL.
+- api.py facts: /query returns file names and scores but no excerpt text; question min length 3; errors are not translated, so a Gemini 429 is expected to appear as a generic 500 (not tested).
+- Tests: 16 new HTTP-backend tests with a fake transport; 24 passed, 1 skipped at that point.
+- 12e comparison (32 questions): 0 differ in all runs. Steady median: local 717 ms (earlier session 737), http 823 / 821 ms (fresh / warm service), about +100 ms, cause not identified. Cold start 4.6-12.7 s across runs with no reliable backend difference.
+- Finding: constructing the httpx client took 1,187 ms (1,301 / 802 ms in a separate test) versus 1 ms with verify=False; certificate loading is the cause. Fix: skip verification setup only for plain http URLs. After the fix, construction measured 113 ms (single run).
+- Finding: the MCP client's default environment passes 12 variables; RAG_BACKEND is not among them, so evals pass it explicitly.
+
+## Step 13: Extras
+- ask budget: ask_fastapi_docs allows 5 calls per server process (env ASK_BUDGET; 0 disables). Failed attempts count; blank questions do not; search is never limited. 7 tests; 31 passed, 1 skipped overall. Limit: resets with each server or container start; it does not track the daily Gemini quota.
+- docs_src gap, measured on data/processed/chunks.jsonl (503 chunks): 275 contain the text "docs_src", 272 contain a real include marker (54%), 168 contain a code fence (33%), 89 contain both. Fence languages: Python 90 (+6 lowercase), JSON 44 (+9), console 42, mermaid 9, bash 4, jinja 4 (fence openings, not chunks). Some code is therefore present; many runnable examples are not.
+
+## Step 14: Docker
+- Dockerfile.mcp: python:3.11-slim, mcp==2.2.0 + httpx, three source files, no key or data; own dockerignore (build context 12.79 kB); image about 250 MB.
+- Mistake caught by the import check: I assumed httpx came with mcp; it did not.
+- Compose: rag-api (healthcheck on /health) plus mcp-server in a profile, started per client session with `docker compose run --rm -T mcp-server`.
+- Finding: with the MCP Python client's default environment, `docker compose` fails ("unknown command: docker compose", surfacing as "Connection closed"); passing the full environment fixes it. Plain `docker run -i` works either way.
+- Smoke tests: plain docker run and compose run both returned results via the client. Cold start with nothing running: 29.9 s to the first answer (single run, images cached).
+- Cursor (model: Cursor Grok 4.6 Medium): search and ask tools worked with the dockerized server, no permission prompt (tool group set to "Allow all"; whether that explains it is untested). Service log showed matching GET /retrieve and POST /query requests.
+- Observation: one ask answer contained non-existent decorators (@app.files, @app.upload). Neither string occurs in any chunk (0 of 503), so they were not in the context the model was given; cause not verified. The "uv add" line occurs in 19 chunks.
+- Observation: the service log showed a Gemini SDK message about automatic function calling; not investigated (hypothesis: hidden by the logging setting in server.py).
+
+## Not verified
+Quieter logs in a real client console; where the noisy test's stray print went; whether Cursor's no-prompt behavior is the "Allow all" setting; Claude Desktop with the Docker server; which container name/route Cursor used for the compose entry [fill in if you check].
