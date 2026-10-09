@@ -16,7 +16,7 @@
   {"id": "a03", "expected": "ask", "style": "tool-named", "prompt": "Use ask_fastapi_docs to explain path parameters."},
   {"id": "a04", "expected": "ask", "style": "assistant-named", "prompt": "Have the FastAPI docs assistant answer this for me: how do I add middleware?"},
   {"id": "a05", "expected": "ask", "style": "assistant-named", "prompt": "Get me a finished answer with citations from the docs assistant about running behind HTTPS proxies."},
-  {"id": "a06", "expected": "ask", "style": "tool-named", "prompt": "Run the grounded-answer tool: what is a Pydantic model used for in FastAPI?"},
+  {"id": "a06", "expected": "ask", "style": "paraphrased-tool", "prompt": "Run the grounded-answer tool: what is a Pydantic model used for in FastAPI?"},
   {"id": "n01", "expected": "none", "style": "general", "prompt": "What is the capital of France?"},
   {"id": "n02", "expected": "none", "style": "other-code", "prompt": "Write a Python function that reverses a string."},
   {"id": "n03", "expected": "none", "style": "other-code", "prompt": "How do I center a div in CSS?"},
