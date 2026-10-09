@@ -4,6 +4,11 @@
       "type": "stdio",
       "command": "${workspaceFolder}/venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/mcp_server/server.py"]
+    },
+        "fastapi-docs-rag-docker": {
+      "type": "stdio",
+      "command": "docker",
+      "args": ["compose", "-f", "${workspaceFolder}/docker-compose.yml", "run", "--rm", "-T", "mcp-server"]
     }
   }
 }

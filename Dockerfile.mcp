@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    RAG_BACKEND=http \
+    RAG_SERVICE_URL=http://host.docker.internal:8000
+
+WORKDIR /app
+RUN pip install --no-cache-dir "mcp==2.2.0" "httpx==0.28.1"
+
+COPY mcp_server/server.py mcp_server/rag_backend.py mcp_server/http_backend.py ./
+
+CMD ["python", "server.py"]
