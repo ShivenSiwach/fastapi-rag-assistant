@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from google import genai
+from gemini_client import get_client
 
 from search_hybrid import hybrid_search
 
@@ -22,7 +23,7 @@ def build_context(hits):
 
 
 def answer(query: str, k: int = 5):
-    client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+    client = get_client()
 
     hits = hybrid_search(query, k=k)
     context = build_context(hits)
