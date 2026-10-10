@@ -15,11 +15,13 @@ Combines lexical search (BM25) and semantic search (Gemini embeddings + FAISS), 
 - [Setup](#setup)
 - [Running the System](#running-the-system)
 - [Docker](#docker)
+- [MCP Server](#mcp-server)
 - [API Reference](#api-reference)
 - [Project Structure](#project-structure)
 - [Engineering Challenges Solved](#engineering-challenges-solved)
 - [What I'd Add Next](#what-id-add-next)
 - [Tech Stack](#tech-stack)
+
 
 ---
 
@@ -190,6 +192,10 @@ docker compose up --build
 ```
 
 The image builds from pre-computed `data/processed/` (chunks + embeddings), not raw markdown — the source documentation isn't needed at runtime. `GEMINI_API_KEY` is injected at container start via environment variable; it is never baked into the image.
+
+## MCP Server
+
+The assistant is also available as an MCP server for Claude Desktop, Cursor and other MCP clients, with measured retrieval parity, a tool-selection eval and a Docker image. See [mcp_server/README.md](mcp_server/README.md).
 
 ## API Reference
 
