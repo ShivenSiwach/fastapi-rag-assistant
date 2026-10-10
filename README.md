@@ -196,7 +196,23 @@ The image builds from pre-computed `data/processed/` (chunks + embeddings), not 
 
 ## MCP Server
 
-The assistant is also available as an MCP server for Claude Desktop, Cursor and other MCP clients, with measured retrieval parity, a tool-selection eval and a Docker image. See [mcp_server/README.md](mcp_server/README.md).
+The assistant is also available as an MCP server (stdio) for Claude Desktop, Cursor and other MCP clients. It exposes two tools: `search_fastapi_docs`, which returns cited excerpts for the client model to read, and `ask_fastapi_docs`, which runs the full grounded pipeline. It can call the RAG code directly or the FastAPI service over HTTP, and ships as a Docker image.
+
+| Check | Result |
+|---|---|
+| Retrieval parity through the real server (32 labeled questions) | All 32 score identically to the RAG eval results (hit and reciprocal rank) |
+| Tool selection (Gemini, 24 labeled prompts, one run each) | 23 / 24 correct |
+| Latency per search over stdio (single runs, one machine) | Median about 717–737 ms with the local backend, about 822 ms over HTTP; protocol overhead about 4–8 ms |
+| Tests | 31 passed, 1 skipped |
+
+> **Honest caveats:** latency figures are single runs on one Windows machine. The tool-selection eval covers one model and a small, mostly easy prompt set. The corpus was built from the markdown files only, so the code samples in `docs_src` are largely missing (about 54% of chunks contain an include marker instead of the code); see the limitations in the MCP README.
+
+```bash
+pip install -r requirements-mcp.txt
+python mcp_server/server.py
+```
+
+Setup for Cursor and Claude Desktop, the Docker and Compose route, the full results and the known limitations are in [mcp_server/README.md](mcp_server/README.md).
 
 ## API Reference
 
