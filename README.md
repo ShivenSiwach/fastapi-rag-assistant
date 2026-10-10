@@ -1,9 +1,10 @@
-# FastAPI Docs RAG Assistant
+# FastAPI Docs RAG Assistant + MCP Server
 
-**A hybrid-retrieval RAG system over FastAPI's official documentation — built with FastAPI, to answer questions about FastAPI.**
+**A hybrid-retrieval RAG system over FastAPI's official documentation — built with FastAPI, to answer questions about FastAPI — plus an MCP server that lets Claude Desktop and Cursor use it as a tool.**
 
 Combines lexical search (BM25) and semantic search (Gemini embeddings + FAISS), fused with Reciprocal Rank Fusion, grounded generation with forced citations, and two independent evaluation suites that measure retrieval accuracy and answer faithfulness with real numbers — not screenshots.
 
+The MCP server in [`mcp_server/`](mcp_server/README.md) exposes the system as two tools, with a parity eval (all 32 labeled questions score identically to the RAG code), a tool-selection eval, an HTTP backend and a Docker image.
 ---
 
 ## Table of Contents
