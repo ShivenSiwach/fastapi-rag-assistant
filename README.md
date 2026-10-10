@@ -45,40 +45,40 @@ data/raw/{tutorial,advanced}/*.md         (85 official FastAPI doc files)
         │
         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  INGESTION                                                    │
-│  src/chunk_naive.py  → fixed-size word chunking                │
-│                         503 chunks, ~150 words each             │
+│  INGESTION                                                  │
+│  src/chunk_naive.py  → fixed-size word chunking             │
+│                         503 chunks, ~150 words each         │
 └─────────────────────────────────────────────────────────────┘
         │
         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  EMBEDDING                                                     │
-│  src/embed.py  → Gemini (gemini-embedding-001)                 │
-│                   768-dim vectors, L2-normalized, batched +     │
-│                   rate-limit-paced, resumable on failure        │
+│  EMBEDDING                                                  │
+│  src/embed.py  → Gemini (gemini-embedding-001)              │
+│                   768-dim vectors, L2-normalized, batched + │
+│                   rate-limit-paced, resumable on failure    │
 └─────────────────────────────────────────────────────────────┘
         │
         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  RETRIEVAL — three interchangeable strategies                  │
-│                                                                 │
-│  src/search.py         BM25Okapi (lexical, stopword-filtered)  │
-│  src/search_bm25.py    FAISS IndexFlatIP (semantic)             │
-│  src/search_hybrid.py  Reciprocal Rank Fusion of both            │
+│  RETRIEVAL — three interchangeable strategies                │
+│                                                              │
+│   src/search.py         FAISS IndexFlatIP (semantic)         │
+│  src/search_bm25.py    BM25Okapi (lexical, stopword-filtered)│             
+│  src/search_hybrid.py  Reciprocal Rank Fusion of both        │
 └─────────────────────────────────────────────────────────────┘
         │
         ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  GENERATION                                                    │
-│  src/generate.py  → Gemini, forced source citations,            │
-│                      explicit permission to say "I don't know"  │
+│  GENERATION                                                 │
+│  src/generate.py  → Gemini, forced source citations,        │
+│                      explicit permission to say "I don't know"│
 └─────────────────────────────────────────────────────────────┘
         │
         ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  SERVING                                                        │
 │  src/api.py  → FastAPI: POST /query · GET /retrieve · GET /health│
-│                 Retriever loaded once at startup, not per-request│
+│                 Chunk list loaded at startup; indexes built per request│
 └─────────────────────────────────────────────────────────────┘
         │
         ▼
@@ -103,8 +103,8 @@ The naive tokenizer initially mis-ranked unrelated documentation above `request-
 **LLM-judged generation eval, not retrieval recall alone.**
 Recall@k only proves the retriever found the right document — it says nothing about whether the *generated answer* stays faithful to it. The generation eval scores faithfulness and relevancy independently, and separately verifies refusal behavior on questions the docs don't cover, because a system that fabricates confidently is worse than one that admits a gap.
 
-**The retriever loads once at server startup, not per request.**
-`src/api.py` uses FastAPI's `lifespan` context manager to build the FAISS index and BM25 corpus a single time when the service starts, rather than rebuilding a search index on every incoming request — the difference between a toy script and a real service.
+**The service loads the chunk list once at startup.**
+`src/api.py` uses FastAPI's `lifespan` context manager to load the chunk list when the service starts. The BM25 and FAISS indexes are still rebuilt on every request (about 80–125 ms per call in measurement), which a future version could cache.
 
 ---
 
@@ -283,6 +283,7 @@ Real constraints hit and resolved during development — documented here because
 - **A stricter generation prompt** to reduce the "cites 1 of 5 retrieved chunks" under-synthesis pattern surfaced during manual review.
 - **A larger, more adversarial eval set.** The current "hard" question set turned out not to be hard enough to separate the three retrieval strategies — all three scored a perfect recall@5 on it, which is itself a useful finding about eval design.
 - **Single-model generation eval**, re-run end-to-end on one consistent model once paid-tier or multi-key quota headroom is available.
+- **Cache the BM25 and FAISS indexes at startup** instead of rebuilding them on every request (about 80–125 ms per call measured).
 
 ## Tech Stack
 
